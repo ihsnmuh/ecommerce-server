@@ -26,7 +26,7 @@ module.exports = (sequelize, DataTypes) => {
           },
           isEmail: {
             args: true,
-            msgL: `Invalid email format`,
+            msg: `Invalid email format`,
           },
         },
       },
@@ -51,6 +51,8 @@ module.exports = (sequelize, DataTypes) => {
       hooks: {
         beforeCreate: (user) => {
           user.password = hashPassword(user.password);
+
+          user.role = "customer";
         },
       },
     }
