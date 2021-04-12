@@ -1,2 +1,2 @@
-# ecommerce-CMS-server
-Website untuk manage content oleh admin
+# ecommerce-server
+API yang berisikan endpoint yang akan dihit oleh CMS dan customer web
