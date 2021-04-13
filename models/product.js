@@ -9,6 +9,10 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Product.belongsToMany(models.User, {
+        through: models.Cart,
+        foreignKey: "UserId",
+      });
     }
   }
   Product.init(
@@ -60,9 +64,6 @@ module.exports = (sequelize, DataTypes) => {
             msg: "Stock cannot set less than 0",
           },
         },
-      },
-      UserId: {
-        type: DataTypes.INTEGER,
       },
     },
     {

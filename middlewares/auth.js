@@ -17,6 +17,7 @@ function authentication(req, res, next) {
             id: token.id,
             username: token.username,
             email: token.email,
+            role: token.role,
           };
           next();
         } else {
@@ -31,7 +32,7 @@ function authentication(req, res, next) {
   }
 }
 
-function authorization(req, res, next) {
+function authorizationAdmin(req, res, next) {
   const id = +req.params.id;
 
   // untuk authorize Taks
@@ -39,7 +40,7 @@ function authorization(req, res, next) {
     .then((foundProduct) => {
       if (foundProduct) {
         //bandingkan
-        if (foundProduct.UserId === req.loggedUser.id) {
+        if (req.loggedUser.role === "admin") {
           next();
         } else {
           res.status(401).json({ message: "Authorization Failed!" });
@@ -53,4 +54,4 @@ function authorization(req, res, next) {
     });
 }
 
-module.exports = { authentication, authorization };
+module.exports = { authentication, authorizationAdmin };
