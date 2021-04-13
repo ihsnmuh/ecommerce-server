@@ -8,7 +8,7 @@ class UserController {
 
     User.create({ email, password })
       .then((userCreate) => {
-        console.log(userCreate, "<<<<<<<<<<<< INI DI USER CREATE");
+        // console.log(userCreate, "<<<<<<<<<<<< INI DI USER CREATE");
         res.status(201).json({
           email: userCreate.email,
           role: userCreate.role,
@@ -34,7 +34,7 @@ class UserController {
               role: foundUser.role,
             };
 
-            console.log(payload);
+            // console.log(payload);
 
             const access_token = signToken(payload);
             res.status(200).json({

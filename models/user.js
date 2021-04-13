@@ -52,7 +52,11 @@ module.exports = (sequelize, DataTypes) => {
         beforeCreate: (user) => {
           user.password = hashPassword(user.password);
 
-          user.role = "customer";
+          if (user.email === "admin@mail.com") {
+            user.role = "admin";
+          } else {
+            user.role = "customer";
+          }
         },
       },
     }
