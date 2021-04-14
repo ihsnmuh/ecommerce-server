@@ -14,22 +14,42 @@ class CartController {
   }
 
   static postCart(req, res, next) {
-    Product.findOne({
-      where: { id: req.params.ProductId },
+    // jika tidak ada productnya >>>> Create product
+    // jika ada jadinya update quantitynya >>>>> update product
+    let dataInput = {
+      UserId: req.loggedUser.id,
+      ProductId: req.params.ProductId,
+      quantity: 1,
+    };
+
+    Cart.findOne({
+      where: { ProductId: req.params.ProductId },
     })
       .then((data) => {
-        // baru bisa add satu satu belum yang nambah
-        // jika tidak ada productnya >>>> Create product
-        // jika ada jadinya update quantitynya >>>>> update product
-        console.log(data);
-        Cart.create({
-          UserId: req.loggedUser.id,
-          ProductId: req.params.ProductId,
-          quantity: req.body.quantity,
-        }).then((newCart) => {
-          res.status(201).json(newCart);
-          // valuenya nambah disini dan di product berkurang sejumlah angka
-        });
+        if (!data) {
+          return Cart.create(dataInput);
+        } else {
+          let quantityBefore = +data.quantity;
+          console.log(quantityBefore, "MASOK SINI");
+          return Cart.update(
+            {
+              quantity: quantityBefore + 1,
+            },
+            {
+              where: {
+                ProductId: req.params.ProductId,
+              },
+              returning: true,
+            }
+          );
+        }
+      })
+      .then((dataNew) => {
+        if (dataNew[0] === 1) {
+          res.status(201).json(dataNew[1][0]);
+        } else {
+          res.status(201).json(dataNew);
+        }
       })
       .catch((err) => {
         next(err);
