@@ -13,7 +13,7 @@ function errHandler(err, req, res, next) {
       res.status(400).json({ message: "Invalid Email or Password" });
       break;
     case "JsonWebTokenError":
-      res.status(400).json({ message: "Invalid Email or Password" });
+      res.status(400).json({ message: "User Not Authenticated" });
       break;
     case "InvalidAccessToken":
       res.status(401).json({ message: "Invalid Access Token" });
@@ -22,7 +22,7 @@ function errHandler(err, req, res, next) {
       res.status(401).json({ message: "Unauthorized Access" });
       break;
     case "NotFound":
-      res.status(404).json({ message: "Task Not Found" });
+      res.status(404).json({ message: "Product Not Found" });
       break;
     default:
       res.status(500).json({ message: "Internal server error" });

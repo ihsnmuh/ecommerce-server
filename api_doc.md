@@ -9,6 +9,12 @@ Membuat Content Management System Server untuk e-commerce
 - `POST /register`
 - `POST /login`
 
+- `GET /products`
+- `POST /products`
+- `GET /products/:id`
+- `PUT /products/:id`
+- `DELETE /products/:id`
+
 &nbsp;
 
 ## RESTful endpoint
@@ -103,6 +109,300 @@ _Response (500 - Internal server error)_
 ```
 {
      "message": "Internal server error"
+}
+```
+
+---
+
+### GET /products
+
+> Get all Products
+
+_Request Header_
+
+```
+{
+  "access_token": "<your access token>"
+}
+```
+
+_Request Body_
+
+```
+Not needed
+```
+
+_Response (200 - Ok)_
+
+```
+[
+  {
+    "id": 1,
+    "name": "<product name>",
+    "image_url": "<product image url>",
+    "price": "<product price>",
+    "stock": "<product stock>",
+    "createdAt": "2021-04-13T05:50:04.489Z",
+    "updatedAt": "2021-04-13T05:50:04.489Z"
+  },
+  {
+    "id": 2,
+    "name": "<product name>",
+    "image_url": "<product image url>",
+    "price": "<product price>",
+    "stock": "<product stock>",
+    "createdAt": "2021-04-13T05:50:04.489Z",
+    "updatedAt": "2021-04-13T05:50:04.489Z"
+  }
+]
+```
+
+_Response (500 - Internal server error)_
+
+```
+{
+  "message": "Internal server error"
+}
+```
+
+---
+
+### POST /products
+
+> Post new product / Input a new product
+
+_Request Header_
+
+```
+{
+  "access_token": "<your access token>"
+}
+```
+
+_Request Body_
+
+```
+{
+    "name": "<product name>",
+    "image_url": "<product image url>",
+    "price": "<product price>",
+    "stock": "<product stock>",
+}
+```
+
+_Response (201 - Created)_
+
+```
+
+{
+    "id": 1,
+    "name": "<product name>",
+    "image_url": "<product image url>",
+    "price": "<product price>",
+    "stock": "<product stock>",
+    "createdAt": "2021-04-13T05:50:04.489Z",
+    "updatedAt": "2021-04-13T05:50:04.489Z"
+},
+
+```
+
+_Response (400 - Bad Request)_
+
+```
+{
+    "message": "<err.name> is required!"
+}
+
+```
+
+_Response (500 - Internal server error)_
+
+```
+{
+  "message": "Internal server error"
+}
+```
+
+---
+
+### GET /products/:id/
+
+> Get selected product by ProductId
+
+_Request Header_
+
+```
+{
+  "access_token": "<your access token>"
+}
+```
+
+_Request Body_
+
+```
+No needed
+```
+
+_Request Params_
+
+```
+id = <id product>
+```
+
+_Response (200 - Ok)_
+
+```
+{
+    "id": 1,
+    "name": "<product name>",
+    "image_url": "<product image url>",
+    "price": "<product price>",
+    "stock": "<product stock>",
+    "createdAt": "2021-04-13T05:50:04.489Z",
+    "updatedAt": "2021-04-13T05:50:04.489Z"
+},
+```
+
+_Response (404 - Not Found)_
+
+```
+{
+  "message": "Product Not Found"
+}
+```
+
+_Response (500 - Internal server error)_
+
+```
+{
+  "message": "Internal server error"
+}
+```
+
+---
+
+### PUT /products/:id/
+
+> Update selected Product
+
+_Request Header_
+
+```
+{
+  "access_token": "<your access token>"
+}
+```
+
+_Request Body_
+
+```
+{
+    "name": "<product name>",
+    "image_url": "<product image url>",
+    "price": "<product price>",
+    "stock": "<product stock>",
+}
+```
+
+_Request Params_
+
+```
+id = <id product>
+```
+
+_Response (200 - Ok)_
+
+```
+{
+    "id": 1,
+    "name": "<product name>",
+    "image_url": "<product image url>",
+    "price": "<product price>",
+    "stock": "<product stock>",
+    "createdAt": "2021-04-13T05:50:04.489Z",
+    "updatedAt": "2021-04-13T05:50:04.489Z"
+}
+```
+
+_Response (401 - Unauthorize)_
+
+```
+{
+  "message": "Unauthorized Access"
+}
+```
+
+_Response (404 - Not Found)_
+
+```
+{
+  "message": "Product Not Found"
+}
+```
+
+_Response (500 - Internal server error)_
+
+```
+{
+  "message": "Internal server error"
+}
+```
+
+---
+
+### DELETE /products/:id/
+
+> Delete selected Task
+
+_Request Header_
+
+```
+{
+  "access_token": "<your access token>"
+}
+```
+
+_Request Body_
+
+```
+No needed
+```
+
+_Request Params_
+
+```
+id = <id product>
+```
+
+_Response (200 - Ok)_
+
+```
+{
+    "message": "Product success to delete"
+}
+```
+
+_Response (401 - Unauthorize)_
+
+```
+{
+  "message": "Unauthorized Access"
+}
+```
+
+_Response (404 - Not Found)_
+
+```
+{
+  "message": "Product Not Found"
+}
+```
+
+_Response (500 - Internal server error)_
+
+```
+{
+  "message": "Internal server error"
 }
 ```
 
