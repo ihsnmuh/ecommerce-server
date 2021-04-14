@@ -23,11 +23,11 @@ module.exports = (sequelize, DataTypes) => {
         validate: {
           notEmpty: {
             args: true,
-            msg: "Stock is required!",
+            msg: "Quantity is required!",
           },
           min: {
             args: [1],
-            msg: "Stock cannot set less than 1",
+            msg: "Quantity cannot set less than 1",
           },
         },
       },

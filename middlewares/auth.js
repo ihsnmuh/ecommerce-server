@@ -1,5 +1,5 @@
 const { verifyToken } = require("../helpers/jwt");
-const { User, Product } = require("../models");
+const { User, Product, Cart } = require("../models");
 
 function authentication(req, res, next) {
   const access_token = req.headers.access_token;
@@ -35,7 +35,6 @@ function authentication(req, res, next) {
 function authorizationAdmin(req, res, next) {
   const id = +req.params.id;
 
-  // untuk authorize Taks
   Product.findByPk(id)
     .then((foundProduct) => {
       if (foundProduct) {
@@ -54,4 +53,50 @@ function authorizationAdmin(req, res, next) {
     });
 }
 
-module.exports = { authentication, authorizationAdmin };
+function authorizationCustomer(req, res, next) {
+  const id = +req.params.id;
+
+  Product.findByPk(id)
+    .then((foundProduct) => {
+      if (foundProduct) {
+        //bandingkan
+        if (req.loggedUser.role === "customer") {
+          next();
+        } else {
+          res.status(401).json({ message: "Authorization Failed!" });
+        }
+      } else {
+        res.status(401).json({ message: "Authorization Failed!" });
+      }
+    })
+    .catch((err) => {
+      next(err);
+    });
+}
+
+function authorizationCart(req, res, next) {
+  const id = +req.params.id;
+
+  Cart.findByPk(id)
+    .then((foundCart) => {
+      if (foundCart) {
+        if (foundCart.UserId === req.loggedUser.id) {
+          next();
+        } else {
+          res.status(401).json({ message: "Authorization Failed!" });
+        }
+      } else {
+        res.status(401).json({ message: "Authorization Failed!" });
+      }
+    })
+    .catch((err) => {
+      next(err);
+    });
+}
+
+module.exports = {
+  authentication,
+  authorizationAdmin,
+  authorizationCustomer,
+  authorizationCart,
+};

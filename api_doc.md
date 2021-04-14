@@ -15,6 +15,12 @@ Membuat Content Management System Server untuk e-commerce
 - `PUT /products/:id`
 - `DELETE /products/:id`
 
+- `GET /carts`
+- `POST /carts/:ProductId`
+- `GET /carts/:id`
+- `PUT /carts/:id`
+- `DELETE /carts/:id`
+
 &nbsp;
 
 ## RESTful endpoint
@@ -352,7 +358,7 @@ _Response (500 - Internal server error)_
 
 ### DELETE /products/:id/
 
-> Delete selected Task
+> Delete selected product
 
 _Request Header_
 
@@ -395,6 +401,286 @@ _Response (404 - Not Found)_
 ```
 {
   "message": "Product Not Found"
+}
+```
+
+_Response (500 - Internal server error)_
+
+```
+{
+  "message": "Internal server error"
+}
+```
+
+---
+
+### GET /carts
+
+> Get all Carts
+
+_Request Header_
+
+```
+{
+  "access_token": "<your access token>"
+}
+```
+
+_Request Body_
+
+```
+Not needed
+```
+
+_Response (200 - Ok)_
+
+```
+[
+  {
+    "ProductId": <id product>,
+    "quantity": <quantity product>,
+    "createdAt": "2021-04-14T10:17:10.828Z",
+    "updatedAt": "2021-04-14T10:17:10.828Z",
+    "UserId": <is User Customer>,
+    "Product": {
+      "id": 2,
+      "name": "<product name>",
+      "image_url": "<product image url>",
+      "price": <price product>,
+      "stock": <stock product>,
+      "createdAt": "2021-04-13T07:26:06.670Z",
+      "updatedAt": "2021-04-14T03:55:15.129Z"
+    }
+  }
+]
+```
+
+_Response (500 - Internal server error)_
+
+```
+{
+  "message": "Internal server error"
+}
+```
+
+---
+
+### POST /carts/:ProductId
+
+> Post new carts / Input a new product to Cart
+
+_Request Header_
+
+```
+{
+  "access_token": "<your access token>"
+}
+```
+
+_Request Body_
+
+```
+{
+    "quantity": "<quantity product>",
+}
+```
+
+_Response (201 - Created)_
+
+```
+
+{
+  "UserId": 14,
+  "ProductId": 2,
+  "quantity": 1,
+  "updatedAt": "2021-04-14T10:17:10.828Z",
+  "createdAt": "2021-04-14T10:17:10.828Z"
+}
+
+```
+
+_Response (400 - Bad Request)_
+
+```
+{
+    "message": "Quantity is required!" || "Quantity cannot set less than 1"
+}
+
+```
+
+_Response (500 - Internal server error)_
+
+```
+{
+  "message": "Internal server error"
+}
+```
+
+---
+
+### GET /carts/:id/
+
+> Get selected cart by CartId
+
+_Request Header_
+
+```
+{
+  "access_token": "<your access token>"
+}
+```
+
+_Request Body_
+
+```
+No needed
+```
+
+_Request Params_
+
+```
+id = <id cart>
+```
+
+_Response (200 - Ok)_
+
+```
+{
+  "ProductId": 1,
+  "quantity": 2,
+  "createdAt": "2021-04-14T08:45:05.511Z",
+  "updatedAt": "2021-04-14T12:21:46.972Z",
+  "UserId": 14
+}
+```
+
+_Response (404 - Not Found)_
+
+```
+{
+  "message": "Product Not Found"
+}
+```
+
+_Response (500 - Internal server error)_
+
+```
+{
+  "message": "Internal server error"
+}
+```
+
+---
+
+### PUT /carts/:id/
+
+> Update selected Cart
+
+_Request Header_
+
+```
+{
+  "access_token": "<your access token>"
+}
+```
+
+_Request Body_
+
+```
+{
+    "quantity": "<cart quantity>",
+}
+```
+
+_Request Params_
+
+```
+id = <id cart>
+```
+
+_Response (200 - Ok)_
+
+```
+{
+  "ProductId": 1,
+  "quantity": 2,
+  "createdAt": "2021-04-14T08:45:05.511Z",
+  "updatedAt": "2021-04-14T12:21:46.972Z",
+  "UserId": 14
+}
+```
+
+_Response (401 - Unauthorize)_
+
+```
+{
+  "message": "Unauthorized Access"
+}
+```
+
+_Response (404 - Not Found)_
+
+```
+{
+  "message": "Product Not Found"
+}
+```
+
+_Response (500 - Internal server error)_
+
+```
+{
+  "message": "Internal server error"
+}
+```
+
+---
+
+### DELETE /carts/:id/
+
+> Delete selected Cart
+
+_Request Header_
+
+```
+{
+  "access_token": "<your access token>"
+}
+```
+
+_Request Body_
+
+```
+No needed
+```
+
+_Request Params_
+
+```
+id = <id cart>
+```
+
+_Response (200 - Ok)_
+
+```
+{
+    "message": "Item on Cart success to delete"
+}
+```
+
+_Response (401 - Unauthorize)_
+
+```
+{
+  "message": "Unauthorized Access"
+}
+```
+
+_Response (404 - Not Found)_
+
+```
+{
+  "message": "Cart Not Found"
 }
 ```
 
