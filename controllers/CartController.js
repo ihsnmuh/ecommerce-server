@@ -16,6 +16,7 @@ class CartController {
   static postCart(req, res, next) {
     // jika tidak ada productnya >>>> Create product
     // jika ada jadinya update quantitynya >>>>> update product
+    // belum ke handle kalo inputan melebihi stock
     let dataInput = {
       UserId: req.loggedUser.id,
       ProductId: req.params.ProductId,

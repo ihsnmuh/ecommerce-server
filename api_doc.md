@@ -481,7 +481,7 @@ _Request Body_
 
 ```
 {
-    "quantity": "<quantity product>",
+  Not needed
 }
 ```
 
@@ -490,6 +490,7 @@ _Response (201 - Created)_
 ```
 
 {
+  "id":7
   "UserId": 14,
   "ProductId": 2,
   "quantity": 1,

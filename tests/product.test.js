@@ -22,46 +22,46 @@ const productData = {
 
 let access_token;
 
-// beforeAll((done) => {
-//   Product.create(productData)
-//     .then((data) => {
-//       // console.log(data, "<<<<< MASOK");
-//       done();
-//     })
-//     .catch((err) => {
-//       done(err);
-//     });
+beforeAll((done) => {
+  Product.create(productData)
+    .then((data) => {
+      // console.log(data, "<<<<< MASOK");
+      done();
+    })
+    .catch((err) => {
+      done(err);
+    });
 
-//   User.create(userData)
-//     .then((data) => {
-//       const payload = {
-//         id: data.id,
-//         email: data.email,
-//         role: data.role,
-//       };
-//       access_token = signToken(payload);
-//       console.log(access_token, "<<<<<<<< AKSES TOKEN didalem");
-//       done();
-//     })
-//     .catch((err) => {
-//       done(err);
-//     });
-// });
+  User.create(userData)
+    .then((data) => {
+      const payload = {
+        id: data.id,
+        email: data.email,
+        role: data.role,
+      };
+      access_token = signToken(payload);
+      console.log(access_token, "<<<<<<<< AKSES TOKEN didalem");
+      done();
+    })
+    .catch((err) => {
+      done(err);
+    });
+});
 
-// afterAll((done) => {
-//   queryInterface
-//     .bulkDelete("Users")
-//     .then(() => {
-//       // queryInterface.bulkDelete("Products");
-//       done();
-//     })
-//     .then(() => {
-//       done();
-//     })
-//     .catch((err) => {
-//       done(err);
-//     });
-// });
+afterAll((done) => {
+  queryInterface
+    .bulkDelete("Users")
+    .then(() => {
+      // queryInterface.bulkDelete("Products");
+      done();
+    })
+    // .then(() => {
+    //   done();
+    // })
+    .catch((err) => {
+      done(err);
+    });
+});
 
 // console.log(access_token, ">>>>>> AKSES TOKEN GLOBAL");
 
@@ -71,14 +71,16 @@ access_token =
 // GET ALL PRODUCT
 
 describe("GET /products", () => {
+  console.log(access_token, ">>>>> Didalam Describe");
   it("Success Case return array of obj from all products & status code 200", (done) => {
+  console.log(access_token, ">>>>> Didalam IT");
     return request(app)
       .get("/products")
       .set("access_token", access_token)
       .set("Accept", "application/json")
       .expect("Content-Type", /json/)
       .then((response) => {
-        // console.log(response.error);
+        console.log(response.error);
         // console.log(body);
         let { body, statusCode } = response;
         expect(statusCode).toBe(200);
@@ -331,7 +333,7 @@ describe("PUT /products/:id", () => {
     };
 
     return request(app)
-      .put("/products/125")
+      .put("/products/2")
       .send(dataNewProduct)
       .set("access_token", access_token)
       .set("Accept", "application/json")
@@ -370,7 +372,7 @@ describe("PUT /products/:id", () => {
     };
 
     return request(app)
-      .post("/products/125")
+      .post("/products/2")
       .send(dataNewProduct)
       .set("access_token", "")
       .set("Accept", "application/json")
@@ -398,7 +400,7 @@ describe("PUT /products/:id", () => {
     };
 
     return request(app)
-      .post("/products/125")
+      .post("/products/2")
       .send(dataNewProduct)
       .set("access_token", "askjdn13h8haodoandasm")
       .set("Accept", "application/json")
@@ -426,7 +428,7 @@ describe("PUT /products/:id", () => {
     };
 
     return request(app)
-      .put("/products/125")
+      .put("/products/2")
       .send(dataNewProduct)
       .set("access_token", access_token)
       .set("Accept", "application/json")
@@ -455,7 +457,7 @@ describe("PUT /products/:id", () => {
     };
 
     return request(app)
-      .put("/products/125")
+      .put("/products/2")
       .send(dataNewProduct)
       .set("access_token", access_token)
       .set("Accept", "application/json")
@@ -483,7 +485,7 @@ describe("PUT /products/:id", () => {
     };
 
     return request(app)
-      .put("/products/125")
+      .put("/products/2")
       .send(dataNewProduct)
       .set("access_token", access_token)
       .set("Accept", "application/json")
@@ -507,7 +509,7 @@ describe("PUT /products/:id", () => {
 describe("DELETE /products/:id", () => {
   it("Success Case return obj massage & status code 200", (done) => {
     return request(app)
-      .delete("/products/127")
+      .delete("/products/23")
       .set("access_token", access_token)
       .set("Accept", "application/json")
       .expect("Content-Type", /json/)
@@ -528,7 +530,7 @@ describe("DELETE /products/:id", () => {
 
   it("Failed Case >> without access_token return error & status code 401", (done) => {
     return request(app)
-      .delete("/products/126")
+      .delete("/products/1")
       .set("access_token", "")
       .set("Accept", "application/json")
       .expect("Content-Type", /json/)
@@ -549,7 +551,7 @@ describe("DELETE /products/:id", () => {
 
   it("Failed Case >> wrong access_token return error & status code 401", (done) => {
     return request(app)
-      .delete("/products/126")
+      .delete("/products/1")
       .set("access_token", "asdafsfwf42fwefw34twf4fgg")
       .set("Accept", "application/json")
       .expect("Content-Type", /json/)
