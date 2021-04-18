@@ -24,8 +24,11 @@ function errHandler(err, req, res, next) {
     case "NotFound":
       res.status(404).json({ message: "Product Not Found" });
       break;
-    case "NotFound":
+    case "CartNotFound":
       res.status(404).json({ message: "Cart Not Found" });
+      break;
+    case "OutOfStock":
+      res.status(400).json({ message: "Out of Stock!" });
       break;
     default:
       res.status(500).json({ message: "Internal server error" });

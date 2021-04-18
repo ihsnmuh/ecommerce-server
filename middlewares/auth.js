@@ -42,10 +42,10 @@ function authorizationAdmin(req, res, next) {
         if (req.loggedUser.role === "admin") {
           next();
         } else {
-          res.status(401).json({ message: "Authorization Failed!" });
+          res.status(401).json({ message: "Authorization Admin Failed!" });
         }
       } else {
-        res.status(401).json({ message: "Authorization Failed!" });
+        res.status(401).json({ message: "Authorization Admin Failed!" });
       }
     })
     .catch((err) => {
@@ -63,10 +63,10 @@ function authorizationCustomer(req, res, next) {
         if (req.loggedUser.role === "customer") {
           next();
         } else {
-          res.status(401).json({ message: "Authorization Failed!" });
+          res.status(401).json({ message: "Authorization Customer Failed!" });
         }
       } else {
-        res.status(401).json({ message: "Authorization Failed!" });
+        res.status(401).json({ message: " ini Authorization Customer Failed!" });
       }
     })
     .catch((err) => {
@@ -83,10 +83,10 @@ function authorizationCart(req, res, next) {
         if (foundCart.UserId === req.loggedUser.id) {
           next();
         } else {
-          res.status(401).json({ message: "Authorization Failed!" });
+          res.status(401).json({ message: "Authorization Cart Failed!" });
         }
       } else {
-        res.status(401).json({ message: "Authorization Failed!" });
+        res.status(401).json({ message: "Authorization Cart Failed!" });
       }
     })
     .catch((err) => {
