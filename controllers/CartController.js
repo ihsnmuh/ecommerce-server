@@ -83,6 +83,7 @@ class CartController {
 
     Cart.findOne({
       where: { id: id, UserId: req.loggedUser.id},
+      attributes: ['id', 'quantity', 'UserId', 'ProductId']
     })
       .then((foundCart) => {
         if (!foundCart) {
