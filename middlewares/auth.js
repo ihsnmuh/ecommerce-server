@@ -56,7 +56,7 @@ function authorizationAdmin(req, res, next) {
 function authorizationCustomer(req, res, next) {
   const id = +req.params.id;
 
-  Product.findByPk(id)
+  Cart.findOne({ where: { id: id}})
     .then((foundProduct) => {
       if (foundProduct) {
         //bandingkan
@@ -77,7 +77,7 @@ function authorizationCustomer(req, res, next) {
 function authorizationCart(req, res, next) {
   const id = +req.params.id;
 
-  Cart.findByPk(id)
+  Cart.findOne({ where: { id: id}})
     .then((foundCart) => {
       if (foundCart) {
         if (foundCart.UserId === req.loggedUser.id) {
