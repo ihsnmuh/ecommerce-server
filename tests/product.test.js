@@ -21,6 +21,7 @@ const productData = {
 };
 
 let access_token;
+let createProductId
 
 beforeAll((done) => {
   Product.create(productData)
@@ -128,6 +129,8 @@ describe("POST /products", () => {
         // console.log(response.error);
         // console.log(response);
         let { body, statusCode } = response;
+        console.log(body, "<<<<<<< CREATE");
+        createProductId = body.id
         expect(statusCode).toBe(201);
         expect(typeof body).toEqual("object");
         expect(body).toHaveProperty("name");
@@ -333,7 +336,7 @@ describe("PUT /products/:id", () => {
     };
 
     return request(app)
-      .put("/products/2")
+      .put(`/products/${createProductId}`)
       .send(dataNewProduct)
       .set("access_token", access_token)
       .set("Accept", "application/json")
@@ -372,7 +375,7 @@ describe("PUT /products/:id", () => {
     };
 
     return request(app)
-      .post("/products/2")
+      .post(`/products/${createProductId}`)
       .send(dataNewProduct)
       .set("access_token", "")
       .set("Accept", "application/json")
@@ -400,7 +403,7 @@ describe("PUT /products/:id", () => {
     };
 
     return request(app)
-      .post("/products/2")
+      .post(`/products/${createProductId}`)
       .send(dataNewProduct)
       .set("access_token", "askjdn13h8haodoandasm")
       .set("Accept", "application/json")
@@ -428,7 +431,7 @@ describe("PUT /products/:id", () => {
     };
 
     return request(app)
-      .put("/products/2")
+      .put(`/products/${createProductId}`)
       .send(dataNewProduct)
       .set("access_token", access_token)
       .set("Accept", "application/json")
@@ -457,7 +460,7 @@ describe("PUT /products/:id", () => {
     };
 
     return request(app)
-      .put("/products/2")
+      .put(`/products/${createProductId}`)
       .send(dataNewProduct)
       .set("access_token", access_token)
       .set("Accept", "application/json")
@@ -485,7 +488,7 @@ describe("PUT /products/:id", () => {
     };
 
     return request(app)
-      .put("/products/2")
+      .put(`/products/${createProductId}`)
       .send(dataNewProduct)
       .set("access_token", access_token)
       .set("Accept", "application/json")
@@ -509,7 +512,7 @@ describe("PUT /products/:id", () => {
 describe("DELETE /products/:id", () => {
   it("Success Case return obj massage & status code 200", (done) => {
     return request(app)
-      .delete("/products/23")
+      .delete(`/products/${createProductId}`)
       .set("access_token", access_token)
       .set("Accept", "application/json")
       .expect("Content-Type", /json/)
@@ -530,7 +533,7 @@ describe("DELETE /products/:id", () => {
 
   it("Failed Case >> without access_token return error & status code 401", (done) => {
     return request(app)
-      .delete("/products/1")
+      .delete(`/products/${createProductId}`)
       .set("access_token", "")
       .set("Accept", "application/json")
       .expect("Content-Type", /json/)
@@ -551,7 +554,7 @@ describe("DELETE /products/:id", () => {
 
   it("Failed Case >> wrong access_token return error & status code 401", (done) => {
     return request(app)
-      .delete("/products/1")
+      .delete(`/products/${createProductId}`)
       .set("access_token", "asdafsfwf42fwefw34twf4fgg")
       .set("Accept", "application/json")
       .expect("Content-Type", /json/)
